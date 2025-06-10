@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mayapur Map – Perfect River Aligned</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        #share-box {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+            z-index: 1000;
+        }
+        #share-link {
+            font-family: monospace;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div id="share-box">
+    📍 <b>Share this location:</b><br>
+    <span id="share-link" onclick="copyToClipboard(this.innerText)">Generating link…</span>
+</div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic291dmlrMjAwNXJveSIsImEiOiJjbWJrcWVwMHgwczc1MnBwam12b2FlNXBvIn0.bOEya1j4twmInQSABzI8YA';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [88.3905, 23.428],
+        zoom: 13.4
+    });
+
+    const data = {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"title": "\ud83c\udfe5 Mayapur Community Hospital"}, "geometry": {"type": "Point", "coordinates": [88.387811, 23.430354]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Chandrodaya Mandir"}, "geometry": {"type": "Point", "coordinates": [88.388546, 23.424829]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Srila Prabhupada Pushpa Samadhi"}, "geometry": {"type": "Point", "coordinates": [88.388112, 23.423586]}}, {"type": "Feature", "properties": {"title": "\ud83c\udf7d\ufe0f Govindas restaurant"}, "geometry": {"type": "Point", "coordinates": [88.390452, 23.423849]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Gita Bhavan"}, "geometry": {"type": "Point", "coordinates": [88.390552, 23.428053]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Namahatta Bhavan"}, "geometry": {"type": "Point", "coordinates": [88.38848104943474, 23.427075279796046]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Gada Bhavan"}, "geometry": {"type": "Point", "coordinates": [88.38923721027187, 23.426514182823563]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Ishodayan Bhavan"}, "geometry": {"type": "Point", "coordinates": [88.39200541646696, 23.427853571654833]}}, {"type": "Feature", "properties": {"title": "\ud83c\udf7d\ufe0f Madhavas restaurant"}, "geometry": {"type": "Point", "coordinates": [88.3916586989266, 23.426088942076095]}}, {"type": "Feature", "properties": {"title": "\ud83c\udf7d\ufe0f Radha Madhava's Mahaprasad"}, "geometry": {"type": "Point", "coordinates": [88.39106755299662, 23.42664023682414]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Goshala"}, "geometry": {"type": "Point", "coordinates": [88.39268007941524, 23.42130927794761]}}, {"type": "Feature", "properties": {"title": "\ud83c\udfe2 Couch Building"}, "geometry": {"type": "Point", "coordinates": [88.39012668165988, 23.42476098106168]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Gaudiya Math"}, "geometry": {"type": "Point", "coordinates": [88.38554321779095, 23.419586245928908]}}, {"type": "Feature", "properties": {"title": "\u26f4\ufe0f Mayapur-Swarupganj ferry ghat"}, "geometry": {"type": "Point", "coordinates": [88.383144, 23.414031]}}, {"type": "Feature", "properties": {"title": "\u26f4\ufe0f Mayapur-Nabadwip ferry ghat"}, "geometry": {"type": "Point", "coordinates": [88.382758, 23.413686]}}, {"type": "Feature", "properties": {"title": "\u26f2 Prabhupada Snan Ghat"}, "geometry": {"type": "Point", "coordinates": [88.38502719998085, 23.421122549525606]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Chakra Bhavan"}, "geometry": {"type": "Point", "coordinates": [88.389741, 23.425604]}}, {"type": "Feature", "properties": {"title": "\ud83c\udfe0 Home"}, "geometry": {"type": "Point", "coordinates": [88.386454, 23.431627]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Sri Chaitanya Janmasthana"}, "geometry": {"type": "Point", "coordinates": [88.39310308891643, 23.43820613111676]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Rajapur Jagannath Mandir"}, "geometry": {"type": "Point", "coordinates": [88.4163313541252, 23.44769565359531]}}, {"type": "Feature", "properties": {"title": "\ud83d\uded5 Srivas Angaan"}, "geometry": {"type": "Point", "coordinates": [88.39442401105185, 23.44017414800334]}}, {"type": "Feature", "properties": {"name": "Mayapur River Aligned Zone"}, "geometry": {"type": "Polygon", "coordinates": [[[88.3823, 23.413], [88.3855, 23.4167], [88.3882, 23.4189], [88.3916, 23.4206], [88.3952, 23.4224], [88.3994, 23.4241], [88.4051, 23.4262], [88.4096, 23.4274], [88.4142, 23.4283], [88.4183, 23.4295], [88.4211, 23.4318], [88.4222, 23.4346], [88.4224, 23.4399], [88.4213, 23.4434], [88.4169, 23.4471], [88.4121, 23.4492], [88.4058, 23.4506], [88.4, 23.4511], [88.3944, 23.4507], [88.3902, 23.4493], [88.3865, 23.4474], [88.3841, 23.4443], [88.3829, 23.44], [88.3823, 23.435], [88.3822, 23.428], [88.3823, 23.413]]]}}]};
+    let activeMarker = null;
+
+    map.on('load', () => {
+        map.addSource('rajapur-extension', {
+            type: 'geojson',
+            data: {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[[88.412, 23.445], [88.420, 23.445], [88.420, 23.450],
+                                     [88.412, 23.450], [88.412, 23.445]]]
+                }
+            }
+        });
+
+        map.addLayer({
+            id: 'rajapur-extension-fill',
+            type: 'fill',
+            source: 'rajapur-extension',
+            paint: {
+                'fill-color': '#ff0000',
+                'fill-opacity': 0.2
+            }
+        });
+
+        map.addSource('my-tileset', {
+            type: 'vector',
+            url: 'mapbox://souvik2005roy.cmbowvv8702dt1pqr36rcn6n6-1az7p'
+        });
+
+        map.addLayer({
+            id: 'highlighted-layer',
+            type: 'fill',
+            source: 'my-tileset',
+            'source-layer': 'Mayapurrr_boundary_commission_',
+            paint: {
+                'fill-color': '#ff0000',
+                'fill-opacity': 0.2
+            }
+        });
+
+        map.addSource('mayapur', { type: 'geojson', data: data });
+
+        map.addLayer({
+            id: 'poi-dots',
+            type: 'circle',
+            source: 'mayapur',
+            paint: {
+                'circle-radius': 5,
+                'circle-color': '#e67e22'
+            },
+            filter: ['==', '$type', 'Point']
+        });
+
+        map.addLayer({
+            id: 'poi-labels',
+            type: 'symbol',
+            source: 'mayapur',
+            layout: {
+                'text-field': ['get', 'title'],
+                'text-font': ['Open Sans Bold'],
+                'text-size': 14,
+                'text-offset': [0, 1.5],
+                'text-anchor': 'top'
+            },
+            paint: {
+                'text-color': '#2c3e50'
+            },
+            filter: ['==', '$type', 'Point']
+        });
+
+        map.on('click', 'poi-dots', (e) => {
+            const coords = e.features[0].geometry.coordinates;
+            const title = e.features[0].properties.title;
+            const shareURL = `https://maps.google.com/?q=${coords[1]},${coords[0]}`;
+            document.getElementById('share-link').innerText = shareURL;
+            document.getElementById('share-box').style.display = 'block';
+
+            if (activeMarker) activeMarker.remove();
+
+            activeMarker = new mapboxgl.Marker({ color: 'red' })
+                .setLngLat(coords)
+                .setPopup(new mapboxgl.Popup().setText("📍 " + title))
+                .addTo(map)
+                .togglePopup();
+
+            map.flyTo({ center: coords, zoom: 15 });
+        });
+    });
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Link copied to clipboard!");
+        });
+    }
+</script>
+</body>
+</html>
